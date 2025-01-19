@@ -43,22 +43,23 @@ vim.cmd("set undofile")
 ----- })
 
 
----- vim.api.nvim_create_autocmd({ "CursorHold", "CursorMoved", "CursorMovedI"}, {
-----     desc = "Keep cursor centered at all times",
-----     group = vim.api.nvim_create_augroup("CenterCursor", { clear = true }),
-----     callback = function()
-----         local mode = vim.fn.mode(1)
-----         if mode == "i" then
-----             return -- Ignore cursor movement in insert mode or when a popup menu is visible
-----         end
----- 
-----         -- Center the cursor
-----         vim.cmd("wincmd z")
----- 
-----         -- Scroll the screen to the cursor's position
-----         vim.cmd("normal! zz")
-----     end,
----- })
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorMoved", "CursorMovedI"}, {
+--    desc = "Keep cursor centered at all times",
+--    group = vim.api.nvim_create_augroup("CenterCursor", { clear = true }),
+--    callback = function()
+--        local mode = vim.fn.mode(1)
+--        if mode == "i" then
+--			vim.cmd("normal zz)
+--           return -- Ignore cursor movement in insert mode or when a popup menu is visible
+--        end
+--
+--        -- Center the cursor
+--        vim.cmd("wincmd z")
+--
+--        -- Scroll the screen to the cursor's position
+--        vim.cmd("normal zz")
+--   end,
+-- })
 
 
 ---
