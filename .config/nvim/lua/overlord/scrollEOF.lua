@@ -14,8 +14,8 @@ local function set_scrolloff()
   local middle= math.floor(winheight / 2)
 
   vim.cmd("set scrolloff=" .. middle)
-
 end
+set_scrolloff()
 
 vim.api.nvim_create_autocmd({"WinResized"}, {
   callback = set_scrolloff,
