@@ -2,7 +2,7 @@ local lsp_zero = require('lsp-zero')
 
 local lsp_attach = function(client, bufnr)
 	--local opts = { buffer = bufnr }
-	local opts = { noremap=true, silent=true, buffer=bufnr }
+	local opts = { noremap = true, silent = true, buffer = bufnr }
 
 	vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
 	vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
@@ -31,9 +31,11 @@ require('mason-lspconfig').setup({
 	}
 })
 
+require('lspconfig').pyright.setup {}
+
 -- Diagnostics
 vim.diagnostic.config({
-  virtual_text = false, -- Turn off inline diagnostics
+	virtual_text = false, -- Turn off inline diagnostics
 })
 
 -- Use this if you want it to automatically show all diagnostics on the
@@ -46,52 +48,52 @@ vim.diagnostic.config({
 
 -- Show all diagnostics on current line in floating window
 vim.api.nvim_set_keymap(
-  'n', '<Leader>ds', ':lua vim.diagnostic.open_float()<CR>', 
-  { noremap = true, silent = true }
+	'n', '<Leader>ds', ':lua vim.diagnostic.open_float()<CR>',
+	{ noremap = true, silent = true }
 )
 -- Go to next diagnostic (if there are multiple on the same line, only shows
 -- one at a time in the floating window)
 vim.api.nvim_set_keymap(
-  'n', '<Leader>dn', ':lua vim.diagnostic.goto_next()<CR>',
-  { noremap = true, silent = true }
+	'n', '<Leader>dn', ':lua vim.diagnostic.goto_next()<CR>',
+	{ noremap = true, silent = true }
 )
 -- Go to prev diagnostic (if there are multiple on the same line, only shows
 -- one at a time in the floating window)
 vim.api.nvim_set_keymap(
-  'n', '<Leader>dp', ':lua vim.diagnostic.goto_prev()<CR>',
-  { noremap = true, silent = true }
+	'n', '<Leader>dp', ':lua vim.diagnostic.goto_prev()<CR>',
+	{ noremap = true, silent = true }
 )
 local cmp = require('cmp')
 
 cmp.setup({
 	sources = {
-		{ name = 'nvim_lsp', keyword_length = 3},
+		{ name = 'nvim_lsp', keyword_length = 3 },
 	},
---	snippet = {
---		expand = function(args)
---			-- You need Neovim v0.10 to use vim.snippet
---			vim.snippet.expand(args.body)
---		end,
---	},
---	mapping = cmp.mapping.preset.insert({
---		['<CR>'] = cmp.mapping.confirm({ select = true }),
---		['<C-Space>'] = cmp.mapping.complete(),
---	}),
+	--	snippet = {
+	--		expand = function(args)
+	--			-- You need Neovim v0.10 to use vim.snippet
+	--			vim.snippet.expand(args.body)
+	--		end,
+	--	},
+	--	mapping = cmp.mapping.preset.insert({
+	--		['<CR>'] = cmp.mapping.confirm({ select = true }),
+	--		['<C-Space>'] = cmp.mapping.complete(),
+	--	}),
 	mapping = {
-		['<CR>'] = cmp.mapping.confirm({select = false}),
+		['<CR>'] = cmp.mapping.confirm({ select = false }),
 		['<C-e>'] = cmp.mapping.abort(),
-		['<S-TAB>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
-		['<TAB>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+		['<S-TAB>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
+		['<TAB>'] = cmp.mapping.select_next_item({ behavior = 'select' }),
 		['<C-p>'] = cmp.mapping(function()
 			if cmp.visible() then
-				cmp.select_prev_item({behavior = 'insert'})
+				cmp.select_prev_item({ behavior = 'insert' })
 			else
 				cmp.complete()
 			end
 		end),
 		['<C-n>'] = cmp.mapping(function()
 			if cmp.visible() then
-				cmp.select_next_item({behavior = 'insert'})
+				cmp.select_next_item({ behavior = 'insert' })
 			else
 				cmp.complete()
 			end
@@ -99,5 +101,3 @@ cmp.setup({
 	},
 
 })
-
-
