@@ -31,8 +31,16 @@ x = 0
 y = 0
 
 [font]
+# I have my font size at 23 because it is a prime number.
+# Neovim sets my scrolloff to have my cursor in the middle of the screen, so if
+# I have a prime number, I should be able to avoid off by 1 errors with the
+# centering of my cursor.
+size = 23.0
 # I use DejaVu Sans Mono because it supports characters like ₕ
 # If you want to try to find another font, go here: https://unicode.scarfboy.com/
 # Then, enter a character that doesn't usually show up in other fonts.
-size = 22.0
-normal = { family = "DejaVu Sans Mono" }
+#normal = { family = "DejaVu Sans Mono" }
+#normal = { family = "BlexMono Nerd Font Mono Light" }
+normal = { family = "Jetbrains Mono" }
+#normal = { family = "0xProto Font Mono Light" }
+

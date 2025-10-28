@@ -31,7 +31,8 @@ require('mason-lspconfig').setup({
 	}
 })
 
-require('lspconfig').pyright.setup {}
+--require('lspconfig').pyright.setup({ filetypes = { "python" } })
+require('lspconfig').pyright.setup({ filetypes = { "python" } })
 
 -- Diagnostics
 vim.diagnostic.config({

@@ -1,0 +1,15 @@
+-- This just delays the removing of the additional lualine.
+-- https://stackoverflow.com/questions/76491151/delaying-lua-function-so-it-runs-after-neovim-has-successfully-launched
+
+--- if vim.fn.filereadable("../../lua/overlord/vim-tpipeline.lua") then
+--- 	local time_to_start = 200
+--- 	local function start_up_func()
+--- 		vim.cmd("set laststatus=0")
+--- 	end
+--- 	local function delayed_start_up_func()
+--- 		local timer = vim.loop.new_timer()
+--- 		-- 0 means to not repeat.
+--- 		timer:start(time_to_start, 0, vim.schedule_wrap(start_up_func))
+--- 	end
+--- 	delayed_start_up_func()
+--- end

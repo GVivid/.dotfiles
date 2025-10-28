@@ -5,6 +5,9 @@ require("config.lazy")
 -- This make it so that, when nvim is open, it keeps the transparency and blur of the terminal.
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
+vim.cmd("hi Error guibg=NONE ctermbg=NONE")
+vim.cmd("hi ErrorMsg guibg=NONE ctermbg=NONE")
+-- vim.cmd("hi ColorColumn guibg=s:asphalt ctermbg=NONE")
 
 -- Makes searching faster by not searching the entire document all at once, only the next element
 vim.cmd("set incsearch")
@@ -14,12 +17,16 @@ vim.cmd("set smartcase")
 vim.cmd("set tabstop=4")
 vim.cmd("set shiftwidth=4")
 -- Make it so vim does not wrap in the middle of a word
-vim.cmd("set linebreak")
+--- vim.cmd("set linebreak")
+
 -- This sets the black bar on the right so I can organize my text
 -- for when I do not want to wrap text.
 vim.cmd("set cc=80")
 -- Makes the text wrap at 79, which is before the black line
 vim.cmd("set textwidth=79")
+
+-- For when I do not want to wrap text.
+vim.cmd("set nowrap")
 
 --vim.cmd("set scrolloff=14") This is dynamically set in scrollEOF file.
 
@@ -28,9 +35,11 @@ vim.cmd("set lazyredraw")
 local prefix = vim.fn.expand("~/")
 vim.opt.undodir = { prefix .. "/.undo//" }
 vim.cmd("set undofile")
+vim.cmd("set cmdheight=0")
 
 
-
+-- This might be helpful if you start using marks a lot.
+-- https://github.com/BartSte/nvim-project-marks
 
 --- local function center_cursor()
 ---   local winheight = vim.api.nvim_win_get_height(0)
@@ -132,7 +141,6 @@ vim.cmd([[autocmd User RedrawScreen colorscheme aurora]])
 vim.defer_fn(function()
 	vim.cmd([[doautocmd User LoadLazyPlugin]])
 end, 80)
-
 vim.defer_fn(function()
 	vim.cmd([[doautocmd ColorScheme]])
 end, 120)

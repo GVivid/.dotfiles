@@ -1,0 +1,8 @@
+[user]
+	name = GVivid
+	email = 108141635+GVivid@users.noreply.github.com
+
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RF
+[interactive]
+	diffFilter = diff-so-fancy --patch

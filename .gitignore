@@ -1,0 +1,4 @@
+.config/karabiner/automatic_backups/
+.config/nvim/lua/overlord/obsidian.lua
+.config/ranger/
+.config/tmux/plugins/

@@ -1,0 +1,36 @@
+# https://zsh.sourceforge.io/Doc/Release/ for documentation
+export JAVA_HOME="/usr/bin/java"
+
+# export DISPLAY=:0.0
+# export DISPLAY=0
+# This is if you use doom emacs.
+# export PATH="$HOME/.emacs.d/bin:$PATH"
+
+# Sets my default editor for terminal things to neovim
+export EDITOR="~/./nvim-macos-x86_64/bin/nvim"
+
+export PATH=:$PATH.
+
+# ImageMagick
+export PATH="$HOME/Documents/ImageMagick-7.0.10/bin:$PATH"
+export MAGICK_HOME="$HOME/Documents/ImageMagick-7.0.10"
+export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"
+
+# Make sure specific bins can be used in the terminal.
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/Documents/ghostscript-10.06.0/bin:$PATH"
+
+# This makes it so that homebrew does not decided to update at inconvenient
+# times. Mac Specific.
+export HOMEBREW_NO_AUTO_UPDATE=1
+export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
+
+# This was needed for kitty colors to work correctly, but not on Alacritty
+# export TERM=xterm-256color
+# export COLORTERM=24bit
+
+# Enable vi mode on terminal
+# set -o vi
+
+# Default PS1 for reference
+# PS1="%n@%m %1~ %# "

@@ -40,7 +40,8 @@ let s:lighter_gray  = { "gui": "#C6C6C6", "cterm": "251", "cterm16" : "251" }
 
 " flat colors:
 let s:asphalt = { "gui": "#1e1c31", "cterm": "233", "cterm16": "NONE"}
-let s:asphalt_subtle= { "gui": "#100E23", "cterm": "232", "cterm16": "0"}
+let s:asphalt_subtle= { "gui": "#100E23", "cterm": "232", "cterm16": "NONE"}
+" let s:asphalt_subtle= { "gui": "#100E23", "cterm": "232", "cterm16": "0"}
 let s:dark_asphalt = { "gui": "#565575", "cterm": "236", "cterm16": "8"}
 
 let s:red = { "gui": "#ff8080", "cterm": "204", "cterm16": "1"}
@@ -56,6 +57,7 @@ let s:blue = { "gui": "#91ddff", "cterm": "159", "cterm16": "4"}
 let s:dark_blue = { "gui": "#65b2ff", "cterm": "75", "cterm16": "12"}
 
 let s:purple = { "gui": "#c991e1", "cterm": "141", "cterm16": "5"}
+"let s:purple = { "gui": "#9f0cba", "cterm": "141", "cterm16": "5"}
 let s:dark_purple = { "gui": "#906cff", "cterm": "135", "cterm16": "13"}
 
 let s:cyan = { "gui": "#aaffe4", "cterm": "122", "cterm16": "6"}
@@ -65,15 +67,37 @@ let s:clouds = { "gui": "#cbe3e7", "cterm": "253", "cterm16": "7"}
 let s:dark_clouds = { "gui": "#a6b3cc", "cterm": "252", "cterm16": "15"}
 
 let s:bg              = s:asphalt
+let s:bg_none         = s:asphalt_subtle
 let s:bg_subtle       = s:asphalt_subtle
 let s:bg_dark         = s:dark_asphalt
 let s:norm            = s:clouds
 let s:norm_subtle     = s:dark_clouds
 let s:visual          = s:bg_dark
 
-let s:head_a         = s:dark_blue
-let s:head_b         = s:blue
-let s:head_c         = s:dark_cyan
+" let s:head_a         = s:dark_blue
+" let s:head_b         = s:blue
+" let s:head_c         = s:dark_cyan
+" let s:head_d         = s:dark_blue
+" let s:head_e         = s:dark_blue
+" let s:head_f         = s:dark_blue
+
+
+let s:head_a         = s:dark_purple
+let s:head_b         = s:dark_cyan
+let s:head_c         = s:green
+let s:head_d         = s:yellow
+" let s:head_d         = "#eee600"
+let s:head_e         = s:dark_yellow
+let s:head_f         = s:dark_red
+
+" MeanderingProgrammer/render-markdown.nvim
+" call s:h("@markdown.heading.1.markdown", {"fg": s:head_a})
+" call s:h("@markdown.heading.2.markdown", {"fg": s:head_b})
+" call s:h("@markdown.heading.3.markdown", {"fg": s:head_c})
+" call s:h("@markdown.heading.4.markdown", {"fg": s:head_d})
+" call s:h("@markdown.heading.5.markdown", {"fg": s:head_e})
+" call s:h("@markdown.heading.6.markdown", {"fg": s:head_f})
+" call s:h("Constant",      				 {"fg": s:yellow})
 
 " shamelessly stolen from hemisu: https://github.com/noahfrederick/vim-hemisu/
 function! s:h(group, style)
@@ -152,7 +176,8 @@ hi! link Debug            Special
 
 call s:h("Underlined",    {"fg": s:norm                      , "gui": "underline", "cterm": "underline"})
 call s:h("Ignore",        {"fg": s:bg                                                                  })
-call s:h("Error",         {"fg": s:dark_red, "bg": s:bg_subtle , "gui": "bold"     , "cterm": "bold"     })
+
+call s:h("Error",         {"fg": s:dark_red, "bg": s:bg_none, "gui": "bold"     , "cterm": "bold"     })
 call s:h("Todo",          {"fg": s:dark_yellow, "bg": s:bg_subtle, "gui": "bold"     , "cterm": "bold"     })
 
 " ui chrome ====================================================================
@@ -237,17 +262,22 @@ call s:h("htmlBold",      {                "gui": "bold"       , "cterm": "bold"
 call s:h("htmlBoldItalic",{                "gui": "bold,italic", "cterm": "bold"     })
 " hi htmlString     guifg=#87875f guibg=NONE gui=NONE        ctermfg=101 ctermbg=NONE cterm=NONE
 
+
 " tpope/vim-markdown
 call s:h("markdownBlockquote",          {"fg": s:norm})
 call s:h("markdownBold",                {"fg": s:norm  , "gui": "bold"       , "cterm": "bold"  })
 call s:h("markdownBoldItalic",          {"fg": s:norm  , "gui": "bold,italic", "cterm": "bold"  })
 call s:h("markdownEscape",              {"fg": s:norm})
-call s:h("markdownH1",                  {"fg": s:head_a, "gui": "bold,italic", "cterm": "bold"  })
-call s:h("markdownH2",                  {"fg": s:head_a, "gui": "bold"       , "cterm": "bold"  })
-call s:h("markdownH3",                  {"fg": s:head_a, "gui": "italic"     , "cterm": "italic"})
-call s:h("markdownH4",                  {"fg": s:head_a, "gui": "italic"     , "cterm": "italic"})
-call s:h("mckarkdownH5",                  {"fg": s:head_a})
-call s:h("markdownH6",                  {"fg": s:head_a})
+" call s:h("markdownH1",                  {"fg": s:head_a, "gui": "bold,italic", "cterm": "bold"  })
+" call s:h("markdownH2",                  {"fg": s:head_b, "gui": "bold"       , "cterm": "bold"  })
+" call s:h("markdownH3",                  {"fg": s:head_c, "gui": "italic"     , "cterm": "italic"})
+" call s:h("markdownH4",                  {"fg": s:head_d, "gui": "italic"     , "cterm": "italic"})
+call s:h("markdownH1",                  {"fg": s:head_a})
+call s:h("markdownH2",                  {"fg": s:head_b})
+call s:h("markdownH3",                  {"fg": s:head_c})
+call s:h("markdownH4",                  {"fg": s:head_d})
+call s:h("markdownH5",                  {"fg": s:head_e})
+call s:h("markdownH6",                  {"fg": s:head_f})
 call s:h("markdownHeadingDelimiter",    {"fg": s:norm})
 call s:h("markdownHeadingRule",         {"fg": s:norm})
 call s:h("markdownId",                  {"fg": s:medium_gray})
