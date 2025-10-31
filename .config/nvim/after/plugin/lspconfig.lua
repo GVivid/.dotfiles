@@ -26,13 +26,17 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
 	handlers = {
 		function(server_name)
-			require('lspconfig')[server_name].setup({})
+			--require('lspconfig')[server_name].setup({}) -- Old set up for
+			--older nvim versions
+			--vim.lsp.config(
+			vim.lsp.enable(server_name)
+			--require('lspconfig')[server_name].setup({})
 		end,
 	}
 })
 
---require('lspconfig').pyright.setup({ filetypes = { "python" } })
-require('lspconfig').pyright.setup({ filetypes = { "python" } })
+-- require('lspconfig').pyright.setup({ filetypes = { "python" } })
+-- vim.lsp.enable('pyright').setup({ filetypes = { "python" } })
 
 -- Diagnostics
 vim.diagnostic.config({

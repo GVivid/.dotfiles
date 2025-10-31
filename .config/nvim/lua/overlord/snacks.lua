@@ -2,7 +2,7 @@
 -- vim.api.nvim_set_hl(0, 'SnacksImageMath', {fg="#ffffff" ,default=true})
 ---- vim.api.nvim_set_hl(0, 'SnacksImageMath', { link = "Normal", default = true })
 -- vim.api.nvim_set_hl(0, 'SnacksImageMath', {fg="#000000" ,default=true})
-vim.api.nvim_set_hl(0, 'SnacksImageMath', {fg="#ffffff" ,default=true})
+vim.api.nvim_set_hl(0, 'SnacksImageMath', { fg = "#ffffff", default = true })
 
 return {
 	"folke/snacks.nvim",
@@ -46,13 +46,26 @@ return {
 		},
 		bigfile = { enabled = false },
 		dashboard = { enabled = false },
-		debug= { enabled = true},
+		debug = { enabled = true },
 		explorer = { enabled = false },
-		indent = { enabled = true },
+		indent = {
+			enabled = true,
+			animate = {
+				enabled = false,
+				--enabled = vim.fn.has("nvim-0.10") == 1,
+			--	style = "out",
+			--	easing = "linear",
+			--	duration = {
+			--		step = 20, -- ms per step
+			--		total = 100, -- maximum duration
+			--	},
+			},
+
+		},
 		input = { enabled = false },
 		picker = { enabled = false },
 		notifier = { enabled = false },
-		quickfile = { enabled = true},
+		quickfile = { enabled = true },
 		scope = { enabled = false },
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
