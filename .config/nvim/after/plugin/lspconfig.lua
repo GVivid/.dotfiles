@@ -22,21 +22,23 @@ lsp_zero.extend_lspconfig({
 	capabilities = require('cmp_nvim_lsp').default_capabilities()
 })
 
+
+-- For older versions
+-- require('lspconfig').pyright.setup({ filetypes = { "python" } })
+
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/lspconfig.txt
+vim.lsp.config('pyright', { filetypes = { "python" } })
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
 	handlers = {
 		function(server_name)
-			--require('lspconfig')[server_name].setup({}) -- Old set up for
-			--older nvim versions
-			--vim.lsp.config(
 			vim.lsp.enable(server_name)
+			--older nvim versions (before 0.11)
 			--require('lspconfig')[server_name].setup({})
 		end,
 	}
 })
-
--- require('lspconfig').pyright.setup({ filetypes = { "python" } })
--- vim.lsp.enable('pyright').setup({ filetypes = { "python" } })
 
 -- Diagnostics
 vim.diagnostic.config({
