@@ -8,6 +8,7 @@ vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
 vim.cmd("hi Error guibg=NONE ctermbg=NONE")
 vim.cmd("hi ErrorMsg guibg=NONE ctermbg=NONE")
 -- vim.cmd("hi ColorColumn guibg=s:asphalt ctermbg=NONE")
+-- vim.cmd("hi ColorColumn guibg=blue blend=50%")
 
 -- Makes searching faster by not searching the entire document all at once, only the next element
 vim.cmd("set incsearch")

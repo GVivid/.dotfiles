@@ -11,14 +11,19 @@ export EDITOR="~/./nvim-macos-x86_64/bin/nvim"
 
 export PATH=:$PATH.
 
+export PYTHONPATH="$HOME/Documents/Documents/Github/Others/matplotlib-backend-kitty"
+export MPLBACKEND="module://matplotlib-backend-kitty"
+export MPLBACKEND_KITTY_SIZING="manual"
+
 # ImageMagick
-export PATH="$HOME/Documents/ImageMagick-7.0.10/bin:$PATH"
 export MAGICK_HOME="$HOME/Documents/ImageMagick-7.0.10"
-export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"
+export PATH="$MAGICK_HOME/bin:$PATH"
+export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib:$DYLD_LIBRARY_PATH"
 
 # Make sure specific bins can be used in the terminal.
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/Documents/ghostscript-10.06.0/bin:$PATH"
+export PATH="/Applications/kitty.app/Contents/kitty-quick-access.app/Contents/MacOS:$PATH"
 
 # This makes it so that homebrew does not decided to update at inconvenient
 # times. Mac Specific.
@@ -34,3 +39,5 @@ export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_P
 
 # Default PS1 for reference
 # PS1="%n@%m %1~ %# "
+export PATH="$HOME/Documents/Github/Others/ascii-image-converter/build:$PATH"
+export PATH="$HOME/Documents/Github/Others/fastfetch/build:$PATH"

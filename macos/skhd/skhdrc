@@ -1,0 +1,98 @@
+# Helpful keywords
+# https://github.com/koekeishiya/skhd/issues/1
+
+# -- Changing Window Focus --
+
+# change window focus within space
+fn + alt - j : yabai -m window --focus south
+fn + alt - k : yabai -m window --focus north
+fn + alt - h : yabai -m window --focus west
+fn + alt - l : yabai -m window --focus east
+
+## change focus between external displays (left and right)
+# alt - s: yabai -m display --focus west
+# alt - g: yabai -m display --focus east
+## Not needed yet.
+
+# -- Modifying the Layout --
+
+# rotate layout clockwise
+shift + alt - r : yabai -m space --rotate 270
+
+# flip along y-axis
+shift + alt - y : yabai -m space --mirror y-axis
+
+# flip along x-axis
+shift + alt - x : yabai -m space --mirror x-axis
+
+# toggle window float
+shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+
+# -- Modifying Window Size --
+
+# maximize a window
+shift + alt - m : yabai -m window --toggle zoom-fullscreen
+
+# balance out tree of windows (resize to occupy same area)
+shift + alt - e : yabai -m space --balance
+
+# -- Moving Windows Around --
+
+# swap windows
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - h : yabai -m window --swap west
+shift + alt - l : yabai -m window --swap east
+
+# move window and split
+ctrl + alt - j : yabai -m window --warp south
+ctrl + alt - k : yabai -m window --warp north
+ctrl + alt - h : yabai -m window --warp west
+ctrl + alt - l : yabai -m window --warp east
+
+# move window to display left and right
+shift + alt - s : yabai -m window --display west; yabai -m display --focus west;
+shift + alt - g : yabai -m window --display east; yabai -m display --focus east;
+
+
+# move window to prev and next space
+shift + alt - p : yabai -m window --space prev;
+shift + alt - n : yabai -m window --space next;
+
+# move window to space #
+shift + alt - 1 : yabai -m window --space 1;
+shift + alt - 2 : yabai -m window --space 2;
+shift + alt - 3 : yabai -m window --space 3;
+shift + alt - 4 : yabai -m window --space 4;
+shift + alt - 5 : yabai -m window --space 5;
+shift + alt - 6 : yabai -m window --space 6;
+shift + alt - 7 : yabai -m window --space 7;
+
+# move to focus
+ctrl - 1 : yabai -m space --focus 1;
+ctrl - 2 : yabai -m space --focus 2;
+ctrl - 3 : yabai -m space --focus 3;
+ctrl - 4 : yabai -m space --focus 4;
+ctrl - 5 : yabai -m space --focus 5;
+ctrl - 6 : yabai -m space --focus 6;
+ctrl - 7 : yabai -m space --focus 7;
+ctrl - 8 : yabai -m space --focus 8;
+ctrl - 9 : yabai -m space --focus 9;
+ctrl - 0x32 : yabai -m space --focus last;
+
+# I was doing some reading, and under "fast focus desktop" here
+# "https://github.com/SxC97/dotfiles/blob/main/.skhdrc", you can use || to run
+# different commands after attempting previous ones; if I set my mission
+# control navigation to ctrl + cmd left/right, then I can avoid the error I get
+# when yabai crashes. It is under issue #1136 where an error was discussed.
+# The --focus last/first means I can carousel around the desktops.
+ctrl - left : (yabai -m space --focus prev || yabai -m space --focus last) || skhd -k "ctrl + cmd - left"
+ctrl - right : (yabai -m space --focus next || yabai -m space --focus first) || skhd -k "ctrl + cmd - right"
+# ctrl - right : yabai -m space --focus next;
+# ctrl: yabai -m window --toggle native-fullscreen;
+
+ctrl + alt + cmd - r : yabai --restart-service;skhd --restart-service;
+ctrl + alt + cmd - q : yabai --stop-service;
+ctrl + alt + cmd - s : yabai --start-service;
+# ctrl + alt + cmd - f : yabai --restart-service;skhd --stop-service;osascript -e 'tell application "System Events" to key code 123 using {control down}';skhd --start-service;
