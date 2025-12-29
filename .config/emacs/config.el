@@ -63,7 +63,7 @@
 
 (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title} ")
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
            :unnarrowed t)
   
           ("l" "Literature" plain "%?"  :if-new

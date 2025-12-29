@@ -1,4 +1,7 @@
 * Device Specific Configuration
+This is where I make a bunch of named code blocks to noweb into other code blocks.
+I find it more convenient to have them all here since if I change one of them, I'll usually change all of them.
+
 #+NAME: Org-Path
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/Documents/Org")
@@ -45,7 +48,7 @@
 #+BEGIN_SRC emacs-lisp
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title} ")
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
            :unnarrowed t)
 
           ("l" "Literature" plain "%?"  :if-new
@@ -177,6 +180,7 @@ Nerd font set up.
     :group 'appearance)
 #+END_SRC
 
+This is just a note of how to use use-package so I can reference it in the future.
 #+BEGIN_SRC emacs-lisp :tangle no
   ;;From now on, you'll see configurations using the `use-package` macro, which allows us to organize our Emacs setup in a modular way.
   ;;These configurations look like this:
@@ -344,6 +348,7 @@ I think this just makes it so buffers and windows are displayed in a better way.
        )))
 #+END_SRC
 
+This is the file manager for emacs.
 #+BEGIN_SRC emacs-lisp
   ;;; DIRED
   ;; In Emacs, the `dired' package provides a powerful and built-in file manager
@@ -592,6 +597,8 @@ Lets you do things like ripgrep and grep more easily.
 
 #+END_SRC
 
+I do not have a good grasp of what this does.
+It seems to allow you to limit the amount of text that is on the screen, which you to limit your search space for some operations.
 #+BEGIN_SRC emacs-lisp
   ;;; EMBARK
   ;; Embark provides a powerful contextual action menu for Emacs, allowing
@@ -606,8 +613,7 @@ Lets you do things like ripgrep and grep more easily.
 
 #+END_SRC
 
-I do not have a good grasp of what this does.
-It seems to allow you to limit the amount of text that is on the screen, which you to limit your search space for some operations.
+Makes embark and consult work together.
 #+BEGIN_SRC emacs-lisp
   ;;; EMBARK-CONSULT
   ;; Embark-Consult provides a bridge between Embark and Consult, ensuring
