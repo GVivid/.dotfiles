@@ -20,6 +20,7 @@
 ;; So we bootstrap it here.
 (setq package-enable-at-startup nil) ;; Disables the default package manager.
 
+
 ;; Bootstraps `straight.el'
 (setq straight-check-for-modifications nil)
 (defvar bootstrap-version)
@@ -44,12 +45,6 @@
 ;; much like plugins do in Neovim. We need to import this package to add package archives.
 (require 'package)
 
-;; Add MELPA (Milkypostman's Emacs Lisp Package Archive) to the list of package archives.
-;; This allows you to install packages from this widely-used repository, similar to how
-;; pip works for Python or npm for Node.js. While Emacs comes with ELPA (Emacs Lisp
-;; Package Archive) configured by default, which contains packages that meet specific
-;; licensing criteria, MELPA offers a broader range of packages and is considered the
-;; standard for Emacs users. You can also add more package archives later as needed.
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; Define a global customizable variable `ek-use-nerd-fonts' to control the use of
@@ -74,7 +69,7 @@
   (display-line-numbers-type 'relative)           ;; Use relative line numbering in programming modes.
   (global-auto-revert-non-file-buffers t)         ;; Automatically refresh non-file buffers.
   (history-length 25)                             ;; Set the length of the command history.
-  (indent-tabs-mode nil)                          ;; Disable the use of tabs for indentation (use spaces instead).
+  (indent-tabs-mode t)                            ;; Use tables instead of spaces.
   (inhibit-startup-message t)                     ;; Disable the startup message when Emacs launches.
   (initial-scratch-message "")                    ;; Clear the initial message in the *scratch* buffer.
   (ispell-dictionary "en_US")                     ;; Set the default dictionary for spell checking.
@@ -241,46 +236,11 @@
   :bind (("C-s" . isearch-forward)             ;; Bind C-s to forward isearch.
          ("C-r" . isearch-backward)))          ;; Bind C-r to backward isearch.
 
-;;; VC
-;; The VC (Version Control) package is included here for awareness and completeness.
-;; While its support for Git is limited and generally considered subpar, it is good to know
-;; that it exists and can be used for other version control systems like Mercurial,
-;; Subversion, and Bazaar.
-;; Magit, which is often regarded as the "father" of Neogit, will be configured later
-;; for an enhanced Git experience.
-;; The keybindings below serve as a reminder of some common VC commands.
-;; But don't worry, you can always use `M-x command' :)
-(use-package vc
-  :ensure nil                        ;; This is built-in, no need to fetch it.
-  :defer t
-  :bind
-  (("C-x v d" . vc-dir)              ;; Open VC directory for version control status.
-   ("C-x v =" . vc-diff)             ;; Show differences for the current file.
-   ("C-x v D" . vc-root-diff)        ;; Show differences for the entire repository.
-   ("C-x v v" . vc-next-action))     ;; Perform the next version control action.
-  :config
-  ;; Better colors for <leader> g b  (blame file)
-  (setq vc-annotate-color-map
-        '((20 . "#f5e0dc")
-          (40 . "#f2cdcd")
-          (60 . "#f5c2e7")
-          (80 . "#cba6f7")
-          (100 . "#f38ba8")
-          (120 . "#eba0ac")
-          (140 . "#fab387")
-          (160 . "#f9e2af")
-          (180 . "#a6e3a1")
-          (200 . "#94e2d5")
-          (220 . "#89dceb")
-          (240 . "#74c7ec")
-          (260 . "#89b4fa")
-          (280 . "#b4befe"))))
-
 ;;; SMERGE
 ;; Smerge is included for resolving merge conflicts in files. It provides a simple interface
 ;; to help you keep changes from either the upper or lower version during a merge.
 ;; This package is built-in, so there's no need to fetch it separately.
-;; The keybindings below did not needed to be setted, are here just to show
+;; The keybindings below did not needed to be set, are here just to show
 ;; you how to work with it in case you are curious about it.
 (use-package smerge-mode
   :ensure nil                                  ;; This is built-in, no need to fetch it.
@@ -302,7 +262,7 @@
   :config
   (setq eldoc-idle-delay 0)                  ;; Automatically fetch doc help
   (setq eldoc-echo-area-use-multiline-p nil) ;; We use the "K" floating help instead
-                                             ;; set to t if you want docs on the echo area
+  ;; set to t if you want docs on the echo area
   (setq eldoc-echo-area-display-truncation-message nil)
   :init
   (global-eldoc-mode))
@@ -322,11 +282,6 @@
      (note "»" compilation-info))))
 
 ;;; WHICH-KEY
-;; `which-key' is an Emacs package that displays available keybindings in a
-;; popup window whenever you partially type a key sequence. This is particularly
-;; useful for discovering commands and shortcuts, making it easier to learn
-;; Emacs and improve your workflow. It helps users remember key combinations
-;; and reduces the cognitive load of memorizing every command.
 (use-package which-key
   :ensure t ;; This is built-in, no need to fetch it.
   :defer t        ;; Defer loading Which-Key until after init.
@@ -370,11 +325,6 @@
         completion-category-defaults nil      ;; Clear default category settings.
         completion-category-overrides '((file (styles partial-completion))))) ;; Customize file completion styles.
 
-;;; MARGINALIA
-;; Marginalia enhances the completion experience in Emacs by adding
-;; additional context to the completion candidates. This includes
-;; helpful annotations such as documentation and other relevant
-;; information, making it easier to choose the right option.
 (use-package marginalia
   :ensure t
   :straight t
@@ -467,7 +417,7 @@
   (corfu-popupinfo-delay 0.5)            ;; Delay before showing documentation popup
   :config
   (if ek-use-nerd-fonts
-    (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+      (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode t))
@@ -480,6 +430,9 @@
   :straight t
   :defer t
   :after (:all corfu))
+
+;; Emacs comes with an integrated LSP client called `eglot', which offers basic LSP functionality. However, `eglot' has limitations, such as not supporting multiple language servers simultaneously within the same buffer (e.g., handling both TypeScript, Tailwind and ESLint LSPs together in a React project). For this reason, the more mature and capable `lsp-mode' is included as a third-party package, providing advanced IDE-like features and better support for multiple language servers and configurations.
+;; NOTE To install or reinstall an LSP server, use `M-x install-server RET`. `lsp-mode` has a great resource site: https://emacs-lsp.github.io/lsp-mode/
 
 (use-package lsp-mode
   :ensure t
@@ -741,19 +694,19 @@
 
   ;; Custom example. Formatting with prettier tool.
   (evil-define-key 'normal 'global (kbd "<leader> m p")
-                   (lambda ()
-                     (interactive)
-                     (shell-command (concat "prettier --write " (shell-quote-argument (buffer-file-name))))
-                     (revert-buffer t t t)))
+    (lambda ()
+      (interactive)
+      (shell-command (concat "prettier --write " (shell-quote-argument (buffer-file-name))))
+      (revert-buffer t t t)))
 
   ;; LSP commands keybindings
   (evil-define-key 'normal lsp-mode-map
-                   ;; (kbd "gd") 'lsp-find-definition                ;; evil-collection already provides gd
-                   (kbd "gr") 'lsp-find-references                   ;; Finds LSP references
-                   (kbd "<leader> c a") 'lsp-execute-code-action     ;; Execute code actions
-                   (kbd "<leader> r n") 'lsp-rename                  ;; Rename symbol
-                   (kbd "gI") 'lsp-find-implementation               ;; Find implementation
-                   (kbd "<leader> l f") 'lsp-format-buffer)          ;; Format buffer via lsp
+    ;; (kbd "gd") 'lsp-find-definition                ;; evil-collection already provides gd
+    (kbd "gr") 'lsp-find-references                   ;; Finds LSP references
+    (kbd "<leader> c a") 'lsp-execute-code-action     ;; Execute code actions
+    (kbd "<leader> r n") 'lsp-rename                  ;; Rename symbol
+    (kbd "gI") 'lsp-find-implementation               ;; Find implementation
+    (kbd "<leader> l f") 'lsp-format-buffer)          ;; Format buffer via lsp
 
 
   (defun ek/lsp-describe-and-jump ()
@@ -770,20 +723,20 @@
   (evil-define-key 'normal 'global (kbd "K")
     (if (>= emacs-major-version 31)
         #'eldoc-box-help-at-point
-        #'ek/lsp-describe-and-jump))
+      #'ek/lsp-describe-and-jump))
 
   ;; Commenting functionality for single and multiple lines
   (evil-define-key 'normal 'global (kbd "gcc")
-                   (lambda ()
-                     (interactive)
-                     (if (not (use-region-p))
-                         (comment-or-uncomment-region (line-beginning-position) (line-end-position)))))
+    (lambda ()
+      (interactive)
+      (if (not (use-region-p))
+          (comment-or-uncomment-region (line-beginning-position) (line-end-position)))))
 
   (evil-define-key 'visual 'global (kbd "gc")
-                   (lambda ()
-                     (interactive)
-                     (if (use-region-p)
-                         (comment-or-uncomment-region (region-beginning) (region-end)))))
+    (lambda ()
+      (interactive)
+      (if (use-region-p)
+          (comment-or-uncomment-region (region-beginning) (region-end)))))
 
   ;; Enable evil mode
   (evil-mode 1))
@@ -803,16 +756,7 @@
   :hook
   (evil-mode . evil-collection-init))
 
-;; EVIL SURROUND
-;; The `evil-surround' package provides text object surround
-;; functionality for `evil-mode'. This allows for easily adding,
-;; changing, or deleting surrounding characters such as parentheses,
-;; quotes, and more.
-;;
-;; With this you can change 'hello there' with ci'" to have
-;; "hello there" and cs"<p> to get <p>hello there</p>.
-;; More examples here:
-;; - https://github.com/emacs-evil/evil-surround?tab=readme-ov-file#examples
+;; https://github.com/emacs-evil/evil-surround?tab=readme-ov-file#examples
 (use-package evil-surround
   :ensure t
   :straight t
@@ -820,19 +764,12 @@
   :config
   (global-evil-surround-mode 1))
 
-;; EVIL MATCHIT
-;; The `evil-matchit' package extends `evil-mode' by enabling
-;; text object matching for structures such as parentheses, HTML
-;; tags, and other paired delimiters. This makes it easier to
-;; navigate and manipulate code blocks.
-;; Just use % for jumping between matching structures to check it out.
 (use-package evil-matchit
   :ensure t
   :straight t
   :after evil-collection
   :config
   (global-evil-matchit-mode 1))
-
 
 ;; UNDO TREE
 ;; The `undo-tree' package provides an advanced and visual way to
@@ -871,20 +808,12 @@
   :hook
   (prog-mode . rainbow-delimiters-mode))
 
-;;; DOTENV
-;; A simple major mode to provide .env files with color highlighting
 (use-package dotenv-mode
   :defer t
   :straight t
   :ensure t
   :config)
 
-;;; PULSAR
-;; The `pulsar' package enhances the user experience in Emacs by providing
-;; visual feedback through pulsating highlights. This feature is especially
-;; useful in programming modes, where it can help users easily track
-;; actions such as scrolling, error navigation, yanking, deleting, and
-;; jumping to definitions.
 (use-package pulsar
   :defer t
   :straight t
@@ -956,9 +885,6 @@
   :defer t)                               ;; Load the package only when needed to improve startup time.
 
 ;;; NERD ICONS Dired
-;; The `nerd-icons-dired' package integrates nerd icons into the Dired mode,
-;; providing visual icons for files and directories. This enhances the Dired
-;; interface by making it easier to identify file types at a glance.
 (use-package nerd-icons-dired
   :if ek-use-nerd-fonts                   ;; Load the package only if the user has configured to use nerd fonts.
   :ensure t                               ;; Ensure the package is installed.
@@ -967,11 +893,6 @@
   :hook
   (dired-mode . nerd-icons-dired-mode))
 
-;;; NERD ICONS COMPLETION
-;; The `nerd-icons-completion' package enhances the completion interfaces in
-;; Emacs by integrating nerd icons with completion frameworks such as
-;; `marginalia'. This provides visual cues for the completion candidates,
-;; making it easier to distinguish between different types of items.
 (use-package nerd-icons-completion
   :if ek-use-nerd-fonts                   ;; Load the package only if the user has configured to use nerd fonts.
   :ensure t                               ;; Ensure the package is installed.
@@ -981,11 +902,6 @@
   (nerd-icons-completion-mode)            ;; Activate nerd icons for completion interfaces.
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)) ;; Setup icons in the marginalia mode for enhanced completion display.
 
-;;; CATPPUCCIN THEME
-;; The `catppuccin-theme' package provides a visually pleasing color theme
-;; for Emacs that is inspired by the popular Catppuccin color palette.
-;; This theme aims to create a comfortable and aesthetic coding environment
-;; with soft colors that are easy on the eyes.
 (use-package catppuccin-theme
   :ensure t
   :straight t
@@ -1005,7 +921,7 @@
   ;; Load the Catppuccin theme without prompting for confirmation.
   (load-theme 'catppuccin :no-confirm))
 
-;; This is where I put all of my configuration files outside of init.el because it will make managing all of my config easier.
+;; This is where I put all of my configuration files outside of init.el because it will make managing my config easier.
 (setq config-file (locate-user-emacs-file "config.el"))
 (load config-file 'noerror 'nomessage)
 

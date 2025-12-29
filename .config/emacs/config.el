@@ -54,10 +54,9 @@
          (file+headline "Ideas.org" "Ideas")
          "** IDEA %^{Idea}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
 
-))
+        ))
 
 (global-set-key (kbd "C-S-c") 'org-capture)
-
 
 ;; This sets the files that refile can refile into. Maxlevel sets the number of subheadings refile can take.
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
@@ -117,9 +116,6 @@
                         ("convert -density 192 -trim -background none %F %O")))
 
 (setq org-preview-latex-default-process 'tectonic)
-
-(set-frame-parameter nil 'alpha-background 70)
-(add-to-list 'default-frame-alist '(alpha-background . 70))
 
 ;; This just maximizes the window.
 (toggle-frame-maximized)
