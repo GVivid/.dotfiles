@@ -6,6 +6,7 @@ macos/karabiner/automatic_backups/
 .config/tmux/plugins/
 .config/emacs/#emacs.org#
 .config/emacs/auto-save-list
+.config/emacs/eln-cache
 .config/emacs/elpa
 .config/emacs/emacs.org~
 .config/emacs/history

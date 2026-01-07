@@ -18,8 +18,5 @@ function mark {
 # File Location Aliases
 source ~/.aliases
 
-# Export path that is specific to a device 
-source ~/.paths
-
 # Things to source for a terminal like tmux.
 source ~/.modules

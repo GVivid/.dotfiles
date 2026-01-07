@@ -1,6 +1,0 @@
-[keyboard]
-bindings = [
-{ key = "q", mods = "Control|Shift", action = "ClearLogNotice" },
-# For mac only
-{ key = "t", mods = "Command", action ="None"},
-]
