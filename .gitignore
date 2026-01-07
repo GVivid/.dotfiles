@@ -8,6 +8,7 @@ macos/karabiner/automatic_backups/
 .config/emacs/auto-save-list
 .config/emacs/eln-cache
 .config/emacs/elpa
+.config/emacs/bookmarks
 .config/emacs/emacs.org~
 .config/emacs/history
 .config/emacs/org-roam.db

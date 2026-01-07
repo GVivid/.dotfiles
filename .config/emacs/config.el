@@ -117,6 +117,44 @@
 
 (setq org-preview-latex-default-process 'tectonic)
 
+;; set up babel support
+        (use-package org-babel)
+        (use-package org-babel-init)
+        (use-package org-babel-gnuplot)
+        (use-package gnuplot)
+        ;; add additional languages with (require 'org-babel-language)
+        ;; active Babel languages
+        (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((gnuplot . t)))
+    ;;    (add-to-list 'org-babel-default-header-args:gnuplot '(:dir . "~/Documents/org-babel-output/"))
+
+;; I want to store all my gnuplot babel outputs in one folder for easier deletion, and this function intercepts my gnuplot babel and adds my preferred directory to the file path.
+(defun my/org-babel-gnuplot-path-fix (info)
+  "Intercept babel info to prepend the directory to the :file argument."
+  (let* ((lang (nth 0 info))
+         (params (nth 2 info))
+         (file-assoc (assoc :file params))
+         (output-dir "~/Documents/org-babel-output/"))
+    
+    (when (and (string= lang "gnuplot") file-assoc)
+      ;; 1. Ensure the directory exists
+      (unless (file-exists-p output-dir)
+        (make-directory output-dir t))
+      
+      ;; 2. Update the path in the params list
+      ;; We use expand-file-name to handle the '~' correctly for the OS
+      (let ((filename (cdr file-assoc)))
+        (unless (string-prefix-p output-dir (expand-file-name filename))
+          (setcdr file-assoc (concat output-dir filename)))))
+    info))
+
+;; Use the 'org-babel-get-src-block-info' filter to modify parameters on the fly
+(advice-add 'org-babel-get-src-block-info :filter-return #'my/org-babel-gnuplot-path-fix)
+
+;; Standard auto-refresh for inline images
+;; (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+
 ;; This just maximizes the window.
 (toggle-frame-maximized)
 
