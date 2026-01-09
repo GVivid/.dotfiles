@@ -118,22 +118,21 @@
 (setq org-preview-latex-default-process 'tectonic)
 
 ;; set up babel support
-        (use-package org-babel)
-        (use-package org-babel-init)
-        (use-package org-babel-gnuplot)
-        (use-package gnuplot)
-        ;; add additional languages with (require 'org-babel-language)
-        ;; active Babel languages
-        (org-babel-do-load-languages
-         'org-babel-load-languages
-         '((gnuplot . t)))
-    ;;    (add-to-list 'org-babel-default-header-args:gnuplot '(:dir . "~/Documents/org-babel-output/"))
+(use-package org-babel)
+(use-package org-babel-init)
+(use-package org-babel-gnuplot)
+(use-package gnuplot)
+;; add additional languages with (require 'org-babel-language)
+;; active Babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((gnuplot . t)))
 
 ;; I want to store all my gnuplot babel outputs in one folder for easier deletion, and this function intercepts my gnuplot babel and adds my preferred directory to the file path.
 (defun my/org-babel-gnuplot-path-fix (info)
   "Intercept babel info to prepend the directory to the :file argument."
-  (let* ((lang (nth 0 info))
-         (params (nth 2 info))
+  (let* ((lang (nth 0 info)) ;; Set lang = first argument of babel heading, aka, the language in the block.
+         (params (nth 2 info)) 
          (file-assoc (assoc :file params))
          (output-dir "~/Documents/org-babel-output/"))
     

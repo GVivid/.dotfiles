@@ -13,6 +13,11 @@ I find it more convenient to have them all here since if I change one of them, I
 (setq org-preview-latex-image-directory "~/Documents/ltximg/")
 #+END_SRC
 
+#+NAME: Gnuplot-Path-Config
+#+BEGIN_SRC emacs-lisp
+"~/Documents/org-babel-output/"
+#+END_SRC
+
 ** Capture Templates
 #+NAME: Org-Capture-Templates-Config
 #+BEGIN_SRC emacs-lisp
@@ -1477,29 +1482,28 @@ I also make sure to set where to put all of the image preview files so I can del
 This is where I set up my gnuplot config.
 I want to be able to take notes using mostly plain text, but graphs are a big problem.
 So, I am using gnuplot to create images from text, which reduces the amount of storage space needed to "store" the graphs, and allows me to fuzzy find through all my files more easily.
-#+NAME: Gnuplot-Config  
-#+BEGIN_SRC emacs-lisp
-          ;; set up babel support
-          (use-package org-babel)
-          (use-package org-babel-init)
-          (use-package org-babel-gnuplot)
-          (use-package gnuplot)
-          ;; add additional languages with (require 'org-babel-language)
-          ;; active Babel languages
-          (org-babel-do-load-languages
-           'org-babel-load-languages
-           '((gnuplot . t)))
-      ;;    (add-to-list 'org-babel-default-header-args:gnuplot '(:dir . "~/Documents/org-babel-output/"))
+#+NAME: Gnuplot-Config
+#+BEGIN_SRC emacs-lisp :noweb yes
+  ;; set up babel support
+  (use-package org-babel)
+  (use-package org-babel-init)
+  (use-package org-babel-gnuplot)
+  (use-package gnuplot)
+  ;; add additional languages with (require 'org-babel-language)
+  ;; active Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((gnuplot . t)))
 
   ;; I want to store all my gnuplot babel outputs in one folder for easier deletion, and this function intercepts my gnuplot babel and adds my preferred directory to the file path.
   (defun my/org-babel-gnuplot-path-fix (info)
     "Intercept babel info to prepend the directory to the :file argument."
-    (let* ((lang (nth 0 info))
-           (params (nth 2 info))
-           (file-assoc (assoc :file params))
-           (output-dir "~/Documents/org-babel-output/"))
+    (let* ((lang (nth 0 info)) ;; Set lang = first argument of babel heading, aka, the language in the block.
+           (params (nth 2 info)) ;; Set params = rest of params. nth 1 is the code block.
+           (file-assoc (assoc :file params)) ;; extract :file param.
+           (output-dir <<Gnuplot-Path-Config>>)) ;; output-dir
       
-      (when (and (string= lang "gnuplot") file-assoc)
+      (when (and (string= lang "gnuplot") file-assoc) ;; check if lang is gnuplot and there is a file-assoc
         ;; 1. Ensure the directory exists
         (unless (file-exists-p output-dir)
           (make-directory output-dir t))
