@@ -3,7 +3,7 @@ macos_dir=$(find "$(pwd)" -maxdepth 1 -type d | tail -n+2)
 
 for entry in "$macos_dir"
 do
-  ln -s "$entry" ~/.config/.
+  cp -r "$entry" ~/.config/.
   echo "$entry"
 done
 

@@ -18,3 +18,11 @@ macos/karabiner/automatic_backups/
 .config/fastfetch/
 .config/neofetch/
 .config/wireshark/
+
+.config/emacs/.lsp-session
+.config/emacs/transient/
+.config/emacs/tree-sitter/
+.config/karabiner/
+.config/skhd/
+.config/yabai/
+
