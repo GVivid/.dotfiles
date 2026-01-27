@@ -38,5 +38,5 @@ return {
 	'Aasim-A/scrollEOF.nvim',
 	event = { 'CursorMoved', 'WinScrolled' },
 	-- event = { 'CursorMoved', 'WinScrolled', 'CursorMovedI' },
-	opts = { insert_mode = true },
+	opts = { insert_mode = false },
 }

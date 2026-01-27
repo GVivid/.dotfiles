@@ -7,6 +7,7 @@ vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
 vim.cmd("hi Error guibg=NONE ctermbg=NONE")
 vim.cmd("hi ErrorMsg guibg=NONE ctermbg=NONE")
+vim.cmd("hi Folded guibg=NONE ctermbg=NONE")
 -- vim.cmd("hi ColorColumn guibg=s:asphalt ctermbg=NONE")
 -- vim.cmd("hi ColorColumn guibg=blue blend=50%")
 
@@ -18,18 +19,19 @@ vim.cmd("set smartcase")
 vim.cmd("set tabstop=4")
 vim.cmd("set shiftwidth=4")
 -- Make it so vim does not wrap in the middle of a word
---- vim.cmd("set linebreak")
+vim.cmd("set linebreak")
+
+-- For when I do not want to wrap text.
+-- vim.cmd("set nowrap")
+
+-- Soft wrapping text
+vim.cmd("set wrap")
 
 -- This sets the black bar on the right so I can organize my text
 -- for when I do not want to wrap text.
 vim.cmd("set cc=80")
 -- Makes the text wrap at 79, which is before the black line
-vim.cmd("set textwidth=79")
-
--- For when I do not want to wrap text.
-vim.cmd("set nowrap")
-
---vim.cmd("set scrolloff=14") This is dynamically set in scrollEOF file.
+-- vim.cmd("set textwidth=79")
 
 vim.cmd("set lazyredraw")
 -- Persistent undo tree | Files stored in $HOME/.config/nvim/.undo

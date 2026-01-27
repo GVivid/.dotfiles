@@ -99,6 +99,14 @@ let s:head_f         = s:dark_red
 " call s:h("@markdown.heading.6.markdown", {"fg": s:head_f})
 " call s:h("Constant",      				 {"fg": s:yellow})
 
+" nvim-orgmode/orgmode 
+" call s:h("@org.headline.level1.org",{"fg": s:head_a})
+" call s:h("@org.headline.level2.org",{"fg": s:head_b})
+" call s:h("@org.headline.level3.org",{"fg": s:head_c})
+" call s:h("@org.headline.level4.org",{"fg": s:head_d})
+" call s:h("@org.headline.level5.org",{"fg": s:head_e})
+" call s:h("@org.headline.level6.org",{"fg": s:head_f})
+
 " shamelessly stolen from hemisu: https://github.com/noahfrederick/vim-hemisu/
 function! s:h(group, style)
   if g:challenger_deep_terminal_italics == 0
