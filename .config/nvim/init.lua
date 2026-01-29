@@ -1,5 +1,6 @@
 vim.opt.termguicolors = true
-vim.cmd("colorscheme challenger_deep")
+--vim.cmd("colorscheme challenger_deep")
+vim.cmd("colorscheme monodeep")
 --require("overlord")
 require("config.lazy")
 -- This make it so that, when nvim is open, it keeps the transparency and blur of the terminal.

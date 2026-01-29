@@ -1,10 +1,9 @@
 " Vim Color File
-" Name:       challenger_deep.vim
-" Version:    2.0
-" Maintainer: github.com/MaxSt
-" License:    The MIT License (MIT)
-" Based On: pencil by github.com/reedes and github.com/mattly
-" Modified: A modified challenger_deep theme I use.
+" Name:       monodeep.vim
+" Version:    0.1
+" Based On: github.com/challenger-deep-theme/vim
+" Modified: Heavily Modified challenger_deep theme.
+" Note: The structure is directly copied form challenger_deep, but colors are mostly changed.
 
 hi clear
 
@@ -12,17 +11,16 @@ if exists('syntax on')
     syntax reset
 endif
 
-let g:colors_name='challenger_deep'
+let g:colors_name='monodeep'
 set background=dark
 
-
-if ! exists("g:challenger_deep_termcolors")
-  let g:challenger_deep_termcolors = 256
+if ! exists("g:monodeep_termcolors")
+  let g:monodeep_termcolors = 256
 endif
 
 " not all terminals support italics properly.  If yours does, opt-in.
-if ! exists("g:challenger_deep_terminal_italics")
-  let g:challenger_deep_terminal_italics = 0
+if ! exists("g:monodeep_terminal_italics")
+  let g:monodeep_terminal_italics = 0
 endif
 
 " Colors
@@ -33,7 +31,7 @@ let s:actual_white    = { "gui": "#FFFFFF", "cterm": "231", "cterm16" : "231" }
 let s:light_black     = { "gui": "#424242", "cterm": "8", "cterm16" : "0" }
 let s:lighter_black   = { "gui": "#545454", "cterm": "240", "cterm16" : "240" }
 
-" lighter shadows and darker grays
+" lighter shadows and alter grays
 let s:subtle_black  = { "gui": "#303030", "cterm": "236", "cterm16" : "236" }
 let s:light_gray    = { "gui": "#B2B2B2", "cterm": "249", "cterm16" : "249" }
 let s:lighter_gray  = { "gui": "#C6C6C6", "cterm": "251", "cterm16" : "251" }
@@ -41,75 +39,48 @@ let s:lighter_gray  = { "gui": "#C6C6C6", "cterm": "251", "cterm16" : "251" }
 " flat colors:
 let s:asphalt = { "gui": "#1e1c31", "cterm": "233", "cterm16": "NONE"}
 let s:asphalt_subtle= { "gui": "#100E23", "cterm": "232", "cterm16": "NONE"}
-" let s:asphalt_subtle= { "gui": "#100E23", "cterm": "232", "cterm16": "0"}
-let s:dark_asphalt = { "gui": "#565575", "cterm": "236", "cterm16": "8"}
+let s:alt_asphalt = { "gui": "#565575", "cterm": "236", "cterm16": "8"}
 
-let s:red = { "gui": "#ff8080", "cterm": "204", "cterm16": "1"}
-let s:dark_red = { "gui": "#ff5458", "cterm": "203", "cterm16": "9"}
+let s:color0 = { "gui": "#4281a3", "cterm": "204", "cterm16": "1"}
+let s:alt_color0 = { "gui": "#61b1de", "cterm": "203", "cterm16": "9"}
 
-let s:green = { "gui": "#95ffa4", "cterm": "120", "cterm16": "2"}
-let s:dark_green = { "gui": "#62d196", "cterm": "119", "cterm16": "10"}
+let s:color1 = { "gui": "#6e7888", "cterm": "120", "cterm16": "2"}
+let s:alt_color1 = { "gui": "#4c7db5", "cterm": "119", "cterm16": "10"}
 
-let s:yellow = { "gui": "#ffe9aa", "cterm": "228", "cterm16": "3"}
-let s:dark_yellow = { "gui": "#ffb378", "cterm": "215", "cterm16": "11"}
+let s:color2 = { "gui": "#627899", "cterm": "228", "cterm16": "3"}
+let s:alt_color2 = { "gui": "#b7c9eb", "cterm": "215", "cterm16": "11"}
 
-let s:blue = { "gui": "#91ddff", "cterm": "159", "cterm16": "4"}
-let s:dark_blue = { "gui": "#65b2ff", "cterm": "75", "cterm16": "12"}
+let s:color3 = { "gui": "#6397e5", "cterm": "159", "cterm16": "4"}
+let s:alt_color3 = { "gui": "#949dbb", "cterm": "75", "cterm16": "12"}
 
-let s:purple = { "gui": "#c991e1", "cterm": "141", "cterm16": "5"}
-"let s:purple = { "gui": "#9f0cba", "cterm": "141", "cterm16": "5"}
-let s:dark_purple = { "gui": "#906cff", "cterm": "135", "cterm16": "13"}
+let s:color4 = { "gui": "#656cc0", "cterm": "141", "cterm16": "5"}
+let s:alt_color4 = { "gui": "#7a76aa", "cterm": "135", "cterm16": "13"}
 
-let s:cyan = { "gui": "#aaffe4", "cterm": "122", "cterm16": "6"}
-let s:dark_cyan = { "gui": "#63f2f1", "cterm": "121", "cterm16": "14"}
+let s:color5 = { "gui": "#b1abe9", "cterm": "122", "cterm16": "6"}
+let s:alt_color5 = { "gui": "#9b8de5", "cterm": "121", "cterm16": "14"}
 
 let s:clouds = { "gui": "#cbe3e7", "cterm": "253", "cterm16": "7"}
-let s:dark_clouds = { "gui": "#a6b3cc", "cterm": "252", "cterm16": "15"}
+let s:alt_clouds = { "gui": "#a6b3cc", "cterm": "252", "cterm16": "15"}
 
 let s:bg              = s:asphalt
 let s:bg_none         = s:asphalt_subtle
 let s:bg_subtle       = s:asphalt_subtle
-let s:bg_dark         = s:dark_asphalt
+let s:bg_alt          = s:alt_asphalt
 let s:norm            = s:clouds
-let s:norm_subtle     = s:dark_clouds
-let s:visual          = s:bg_dark
+let s:norm_subtle     = s:alt_clouds
+let s:visual          = s:bg_alt
 
-" let s:head_a         = s:dark_blue
-" let s:head_b         = s:blue
-" let s:head_c         = s:dark_cyan
-" let s:head_d         = s:dark_blue
-" let s:head_e         = s:dark_blue
-" let s:head_f         = s:dark_blue
+let s:head_a         = s:alt_color5
+let s:head_b         = s:alt_color2
+let s:head_c         = s:alt_color0
+let s:head_d         = s:color4
+let s:head_e         = s:color0
+let s:head_f         = s:color2
 
 
-let s:head_a         = s:dark_purple
-let s:head_b         = s:dark_cyan
-let s:head_c         = s:green
-let s:head_d         = s:yellow
-" let s:head_d         = "#eee600"
-let s:head_e         = s:dark_yellow
-let s:head_f         = s:dark_red
-
-" MeanderingProgrammer/render-markdown.nvim
-" call s:h("@markdown.heading.1.markdown", {"fg": s:head_a})
-" call s:h("@markdown.heading.2.markdown", {"fg": s:head_b})
-" call s:h("@markdown.heading.3.markdown", {"fg": s:head_c})
-" call s:h("@markdown.heading.4.markdown", {"fg": s:head_d})
-" call s:h("@markdown.heading.5.markdown", {"fg": s:head_e})
-" call s:h("@markdown.heading.6.markdown", {"fg": s:head_f})
-" call s:h("Constant",      				 {"fg": s:yellow})
-
-" nvim-orgmode/orgmode 
-" call s:h("@org.headline.level1.org",{"fg": s:head_a})
-" call s:h("@org.headline.level2.org",{"fg": s:head_b})
-" call s:h("@org.headline.level3.org",{"fg": s:head_c})
-" call s:h("@org.headline.level4.org",{"fg": s:head_d})
-" call s:h("@org.headline.level5.org",{"fg": s:head_e})
-" call s:h("@org.headline.level6.org",{"fg": s:head_f})
-
-" shamelessly stolen from hemisu: https://github.com/noahfrederick/vim-hemisu/
+" shamelessly stolen from hemisu: https://github.com/noahfcolor0erick/vim-hemisu/
 function! s:h(group, style)
-  if g:challenger_deep_terminal_italics == 0
+  if g:monodeep_terminal_italics == 0
     " Not all terminals support italics properly. If yours does, opt-in.
     if get(a:style, "cterm", "") == "italic"
       unlet a:style.cterm
@@ -118,7 +89,7 @@ function! s:h(group, style)
       unlet a:style.gui
     endif
   endif
-  if g:challenger_deep_termcolors == 16
+  if g:monodeep_termcolors == 16
     let l:ctermfg = (has_key(a:style, "fg") ? a:style.fg.cterm16 : "NONE")
     let l:ctermbg = (has_key(a:style, "bg") ? a:style.bg.cterm16 : "NONE")
   else
@@ -139,43 +110,43 @@ endfunction
 " (see `:h w18`)
 
 call s:h("Normal",        {"bg": s:bg, "fg": s:norm})
-call s:h("Cursor",        {"bg": s:blue, "fg": s:bg_dark})
+call s:h("Cursor",        {"bg": s:color3, "fg": s:bg_alt})
 call s:h("Comment",       {"fg": s:medium_gray, "gui": "italic", "cterm": "italic"})
 
-call s:h("Constant",      {"fg": s:yellow})
+call s:h("Constant",      {"fg": s:alt_color2})
 hi! link String           Constant
 hi! link Character        Constant
 
-call s:h("Number",        {"fg": s:dark_yellow})
+call s:h("Number",        {"fg": s:color2})
 hi! link Boolean          Constant
 hi! link Float            Constant
 
-call s:h("Identifier",    {"fg": s:purple})
+call s:h("Identifier",    {"fg": s:color4})
 hi! link Function         Identifier
 
-call s:h("Label",         {"fg": s:dark_blue})
+call s:h("Label",         {"fg": s:alt_color3})
 hi! link Conditonal       Statement
 hi! link Exception        Statement
 
-call s:h("Operator",      {"fg": s:dark_cyan})
+call s:h("Operator",      {"fg": s:alt_color5})
 hi! link Repeat           Operator
 
-call s:h("PreProc",       {"fg": s:green})
+call s:h("PreProc",       {"fg": s:color1})
 hi! link Include          PreProc
 hi! link Define           PreProc
 hi! link Macro            PreProc
 hi! link PreCondit        PreProc
 
 
-call s:h("Keyword",       {"fg": s:red})
+call s:h("Keyword",       {"fg": s:color0})
 hi! link Statement        Keyword
 
-call s:h("Type",          {"fg": s:blue})
+call s:h("Type",          {"fg": s:color3})
 hi! link StorageClass     Type
 hi! link Structure        Type
 hi! link Typedef          Type
 
-call s:h("Special",       {"fg": s:cyan})
+call s:h("Special",       {"fg": s:color5})
 hi! link SpecialChar      Special
 hi! link Tag              Special
 hi! link Delimiter        Special
@@ -185,66 +156,66 @@ hi! link Debug            Special
 call s:h("Underlined",    {"fg": s:norm, "gui": "underline", "cterm": "underline"})
 call s:h("Ignore",        {"fg": s:bg})
 
-call s:h("Error",         {"fg": s:dark_red, "bg": s:bg_none, "gui": "bold","cterm":"bold"})
-call s:h("Todo",          {"fg":s:dark_yellow,"bg":s:bg_subtle,"gui":"bold","cterm":"bold"})
+call s:h("Error",{"fg":s:alt_color0,"bg":s:bg_none,"gui":"bold","cterm":"bold"})
+call s:h("Todo",{"fg":s:alt_color2,"bg":s:bg_subtle,"gui":"bold","cterm":"bold"})
 
 " ui chrome ====================================================================
-" ordered according to `:help hitest.vim`
+" ordecolor0 according to `:help hitest.vim`
 
-call s:h("SpecialKey",    {"fg": s:blue})
-call s:h("Boolean",       {"fg": s:dark_yellow})
-call s:h("Number",        {"fg": s:dark_yellow})
-call s:h("Float",         {"fg": s:dark_yellow})
-call s:h("NonText",       {"fg": s:bg_dark})
-call s:h("Directory",     {"fg": s:purple})
-call s:h("ErrorMsg",      {"fg": s:dark_red})
-call s:h("IncSearch",     {"bg": s:red, "fg": s:clouds})
-call s:h("Search",        {"bg": s:bg_dark})
+call s:h("SpecialKey",    {"fg": s:color3})
+call s:h("Boolean",       {"fg": s:alt_color2})
+call s:h("Number",        {"fg": s:alt_color2})
+call s:h("Float",         {"fg": s:alt_color2})
+call s:h("NonText",       {"fg": s:bg_alt})
+call s:h("Directory",     {"fg": s:color4})
+call s:h("ErrorMsg",      {"fg": s:alt_color0})
+call s:h("IncSearch",     {"bg": s:color0, "fg": s:clouds})
+call s:h("Search",        {"bg": s:bg_alt})
 call s:h("MoreMsg",       {"fg": s:medium_gray, "gui": "bold", "cterm": "bold"})
 hi! link ModeMsg MoreMsg
-call s:h("LineNr",        {"fg": s:dark_asphalt, "bg": s:bg_subtle})
-call s:h("CursorLineNr",  {"bg": s:bg_subtle, "fg": s:blue, "gui": "bold"})
-call s:h("Question",      {"fg": s:red})
-call s:h("StatusLine",    {"bg": s:bg_dark})
+call s:h("LineNr",        {"fg": s:alt_asphalt, "bg": s:bg_subtle})
+call s:h("CursorLineNr",  {"bg": s:bg_subtle, "fg": s:color3, "gui": "bold"})
+call s:h("Question",      {"fg": s:color0})
+call s:h("StatusLine",    {"bg": s:bg_alt})
 call s:h("Conceal",       {"fg": s:norm})
-call s:h("StatusLineNC",  {"bg": s:bg_dark, "fg": s:medium_gray})
+call s:h("StatusLineNC",  {"bg": s:bg_alt, "fg": s:medium_gray})
 call s:h("VertSplit",     {"fg": s:bg_subtle})
-call s:h("Title",         {"fg": s:dark_blue})
+call s:h("Title",         {"fg": s:alt_color3})
 call s:h("Visual",        {"bg": s:visual})
-call s:h("WarningMsg",    {"fg": s:yellow})
-call s:h("WildMenu",      {"fg": s:bg_subtle, "bg": s:cyan})
-call s:h("Folded",        {"bg": s:purple, "fg": s:bg_subtle})
-call s:h("FoldColumn",    {"fg": s:yellow})
-call s:h("DiffAdd",       {"fg": s:green})
-call s:h("DiffDelete",    {"fg": s:red})
-call s:h("DiffChange",    {"fg": s:dark_yellow})
-call s:h("DiffText",      {"fg": s:dark_blue})
-call s:h("SignColumn",    {"fg": s:green})
+call s:h("WarningMsg",    {"fg": s:color2})
+call s:h("WildMenu",      {"fg": s:bg_subtle, "bg": s:color5})
+call s:h("Folded",        {"bg": s:color4, "fg": s:bg_subtle})
+call s:h("FoldColumn",    {"fg": s:color2})
+call s:h("DiffAdd",       {"fg": s:color1})
+call s:h("DiffDelete",    {"fg": s:color0})
+call s:h("DiffChange",    {"fg": s:alt_color2})
+call s:h("DiffText",      {"fg": s:alt_color3})
+call s:h("SignColumn",    {"fg": s:color1})
 
 if has("gui_running")
-  call s:h("SpellBad",    {"gui": "underline", "sp": s:dark_red})
-  call s:h("SpellCap",    {"gui": "underline", "sp": s:green})
-  call s:h("SpellRare",   {"gui": "underline", "sp": s:red})
-  call s:h("SpellLocal",  {"gui": "underline", "sp": s:dark_green})
+  call s:h("SpellBad",    {"gui": "underline", "sp": s:alt_color0})
+  call s:h("SpellCap",    {"gui": "underline", "sp": s:color1})
+  call s:h("SpellRare",   {"gui": "underline", "sp": s:color0})
+  call s:h("SpellLocal",  {"gui": "underline", "sp": s:alt_color1})
 else
-  call s:h("SpellBad",    {"cterm": "underline", "fg": s:dark_red})
-  call s:h("SpellCap",    {"cterm": "underline", "fg": s:green})
-  call s:h("SpellRare",   {"cterm": "underline", "fg": s:red})
-  call s:h("SpellLocal",  {"cterm": "underline", "fg": s:dark_green})
+  call s:h("SpellBad",    {"cterm": "underline", "fg": s:alt_color0})
+  call s:h("SpellCap",    {"cterm": "underline", "fg": s:color1})
+  call s:h("SpellRare",   {"cterm": "underline", "fg": s:color0})
+  call s:h("SpellLocal",  {"cterm": "underline", "fg": s:alt_color1})
 endif
 call s:h("Pmenu",         {"fg": s:norm, "bg": s:bg_subtle})
-call s:h("PmenuSel",      {"fg": s:norm, "bg": s:bg_dark})
-call s:h("PmenuSbar",     {"fg": s:norm, "bg": s:bg_dark})
-call s:h("PmenuThumb",    {"fg": s:norm, "bg": s:bg_dark})
-call s:h("TabLine",       {"fg": s:norm, "bg": s:bg_dark})
+call s:h("PmenuSel",      {"fg": s:norm, "bg": s:bg_alt})
+call s:h("PmenuSbar",     {"fg": s:norm, "bg": s:bg_alt})
+call s:h("PmenuThumb",    {"fg": s:norm, "bg": s:bg_alt})
+call s:h("TabLine",       {"fg": s:norm, "bg": s:bg_alt})
 call s:h("TabLineSel",    {"fg": s:norm, "bg": s:bg_subtle, "gui": "bold", "cterm": "bold"})
-call s:h("TabLineFill",   {"fg": s:norm, "bg": s:bg_dark})
+call s:h("TabLineFill",   {"fg": s:norm, "bg": s:bg_alt})
 call s:h("CursorColumn",  {"bg": s:bg_subtle})
 call s:h("CursorLine",    {"bg": s:bg_subtle})
 call s:h("ColorColumn",   {"bg": s:bg_subtle})
 
 " remainder of syntax highlighting
-call s:h("MatchParen",    {"bg": s:bg_subtle, "fg": s:purple, "gui": "bold", "cterm": "bold"})
+call s:h("MatchParen",    {"bg": s:bg_subtle, "fg": s:color4, "gui": "bold", "cterm": "bold"})
 call s:h("qfLineNr",      {"fg": s:medium_gray})
 
 " hi helpHyperTextJump guifg=#5FAFD7 ctermfg=74
@@ -264,7 +235,7 @@ call s:h("htmlH3",        {"fg": s:head_b, "gui": "italic"     , "cterm": "itali
 call s:h("htmlH4",        {"fg": s:head_b, "gui": "italic"     , "cterm": "italic"   })
 call s:h("htmlH5",        {"fg": s:head_c                                            })
 call s:h("htmlH6",        {"fg": s:head_c                                            })
-call s:h("htmlLink",      {"fg": s:blue  , "gui": "underline"  , "cterm": "underline"})
+call s:h("htmlLink",      {"fg": s:color3  , "gui": "underline"  , "cterm": "underline"})
 call s:h("htmlItalic",    {                "gui": "italic"     , "cterm": "italic"   })
 call s:h("htmlBold",      {                "gui": "bold"       , "cterm": "bold"     })
 call s:h("htmlBoldItalic",{                "gui": "bold,italic", "cterm": "bold"     })
@@ -295,7 +266,7 @@ call s:h("markdownLinkDelimiter",       {"fg": s:medium_gray})
 call s:h("markdownLinkText",            {"fg": s:norm})
 call s:h("markdownLinkTextDelimiter",   {"fg": s:medium_gray})
 call s:h("markdownListMarker",          {"fg": s:norm})
-call s:h("markdownOrderedListMarker",   {"fg": s:norm})
+call s:h("markdownOrdecolor0ListMarker",   {"fg": s:norm})
 call s:h("markdownRule",                {"fg": s:norm})
 call s:h("markdownUrl",                 {"fg": s:medium_gray, "gui": "underline", "cterm": "underline"})
 call s:h("markdownUrlDelimiter",        {"fg": s:medium_gray})
@@ -351,32 +322,32 @@ hi! link xmlEndTag                  xmlTag
 hi! link xmlTagName                 htmlTagName
 
 " Signify
-call s:h("SignifySignAdd",{"fg": s:green, "bg": s:bg_subtle})
-call s:h("SignifySignDelete",{"fg": s:red, "bg": s:bg_subtle})
-call s:h("SignifySignChange",{"fg": s:yellow, "bg": s:bg_subtle})
-call s:h("SignifySignDeleteFirstLine",{"fg": s:red, "bg": s:bg_subtle})
+call s:h("SignifySignAdd",{"fg": s:color1, "bg": s:bg_subtle})
+call s:h("SignifySignDelete",{"fg": s:color0, "bg": s:bg_subtle})
+call s:h("SignifySignChange",{"fg": s:color2, "bg": s:bg_subtle})
+call s:h("SignifySignDeleteFirstLine",{"fg": s:color0, "bg": s:bg_subtle})
 
 " GitGutter
-call s:h("GitGutterAdd",{"fg": s:green, "bg": s:bg_subtle})
-call s:h("GitGutterDelete",{"fg": s:red, "bg": s:bg_subtle})
-call s:h("GitGutterChange",{"fg": s:yellow, "bg": s:bg_subtle})
-call s:h("GitGutterChangeDelete",{"fg": s:red, "bg": s:bg_subtle})
+call s:h("GitGutterAdd",{"fg": s:color1, "bg": s:bg_subtle})
+call s:h("GitGutterDelete",{"fg": s:color0, "bg": s:bg_subtle})
+call s:h("GitGutterChange",{"fg": s:color2, "bg": s:bg_subtle})
+call s:h("GitGutterChangeDelete",{"fg": s:color0, "bg": s:bg_subtle})
 
 
 "nvim terminal colors
-let g:terminal_color_0 = s:bg_dark.gui
-let g:terminal_color_1 = s:red.gui
-let g:terminal_color_2 = s:green.gui
-let g:terminal_color_3 = s:yellow.gui
-let g:terminal_color_4 = s:blue.gui
-let g:terminal_color_5 = s:purple.gui
-let g:terminal_color_6 = s:cyan.gui
+let g:terminal_color_0 = s:bg_alt.gui
+let g:terminal_color_1 = s:color0.gui
+let g:terminal_color_2 = s:color1.gui
+let g:terminal_color_3 = s:color2.gui
+let g:terminal_color_4 = s:color3.gui
+let g:terminal_color_5 = s:color4.gui
+let g:terminal_color_6 = s:color5.gui
 let g:terminal_color_7 = s:clouds.gui
 let g:terminal_color_8 = s:bg_subtle.gui
-let g:terminal_color_9 = s:dark_red.gui
-let g:terminal_color_10 = s:dark_green.gui
-let g:terminal_color_11 = s:dark_yellow.gui
-let g:terminal_color_12 = s:dark_blue.gui
-let g:terminal_color_13 = s:dark_purple.gui
-let g:terminal_color_14 = s:dark_cyan.gui
-let g:terminal_color_15 = s:dark_clouds.gui
+let g:terminal_color_9 = s:alt_color0.gui
+let g:terminal_color_10 = s:alt_color1.gui
+let g:terminal_color_11 = s:alt_color2.gui
+let g:terminal_color_12 = s:alt_color3.gui
+let g:terminal_color_13 = s:alt_color4.gui
+let g:terminal_color_14 = s:alt_color5.gui
+let g:terminal_color_15 = s:alt_clouds.gui
