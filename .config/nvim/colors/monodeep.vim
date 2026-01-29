@@ -131,7 +131,8 @@ hi! link Exception        Statement
 call s:h("Operator",      {"fg": s:alt_color5})
 hi! link Repeat           Operator
 
-call s:h("PreProc",       {"fg": s:color1})
+" call s:h("PreProc",       {"fg": s:color1})
+call s:h("PreProc",       {"fg": s:alt_color1})
 hi! link Include          PreProc
 hi! link Define           PreProc
 hi! link Macro            PreProc
