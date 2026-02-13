@@ -30,7 +30,8 @@ vim.cmd("set wrap")
 
 -- This sets the black bar on the right so I can organize my text
 -- for when I do not want to wrap text.
-vim.cmd("set cc=80")
+--- vim.cmd("set cc=80")
+
 -- Makes the text wrap at 79, which is before the black line
 -- vim.cmd("set textwidth=79")
 
