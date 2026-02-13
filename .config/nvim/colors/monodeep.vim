@@ -32,9 +32,9 @@ let s:light_black     = { "gui": "#424242", "cterm": "8", "cterm16" : "0" }
 let s:lighter_black   = { "gui": "#545454", "cterm": "240", "cterm16" : "240" }
 
 " lighter shadows and alter grays
-let s:subtle_black  = { "gui": "#303030", "cterm": "236", "cterm16" : "236" }
-let s:light_gray    = { "gui": "#B2B2B2", "cterm": "249", "cterm16" : "249" }
-let s:lighter_gray  = { "gui": "#C6C6C6", "cterm": "251", "cterm16" : "251" }
+" let s:subtle_black  = { "gui": "#303030", "cterm": "236", "cterm16" : "236" }
+" let s:light_gray    = { "gui": "#B2B2B2", "cterm": "249", "cterm16" : "249" }
+" let s:lighter_gray  = { "gui": "#C6C6C6", "cterm": "251", "cterm16" : "251" }
 
 " flat colors:
 let s:asphalt = { "gui": "#1e1c31", "cterm": "233", "cterm16": "NONE"}
@@ -65,10 +65,11 @@ let s:alt_clouds = { "gui": "#a6b3cc", "cterm": "252", "cterm16": "15"}
 let s:bg              = s:asphalt
 let s:bg_none         = s:asphalt_subtle
 let s:bg_subtle       = s:asphalt_subtle
-let s:bg_alt          = s:alt_asphalt
+let s:bg_alt          = s:asphalt
 let s:norm            = s:clouds
 let s:norm_subtle     = s:alt_clouds
-let s:visual          = s:bg_alt
+
+let s:visual          = s:alt_asphalt
 
 let s:head_a         = s:alt_color5
 let s:head_b         = s:alt_color2
@@ -184,7 +185,7 @@ call s:h("VertSplit",     {"fg": s:bg_subtle})
 call s:h("Title",         {"fg": s:alt_color3})
 call s:h("Visual",        {"bg": s:visual})
 call s:h("WarningMsg",    {"fg": s:color2})
-call s:h("WildMenu",      {"fg": s:bg_subtle, "bg": s:color5})
+call s:h("WildMenu",      {"fg": s:bg, "bg": s:color5})
 call s:h("Folded",        {"bg": s:color4, "fg": s:bg_subtle})
 call s:h("FoldColumn",    {"fg": s:color2})
 call s:h("DiffAdd",       {"fg": s:color1})
@@ -204,8 +205,9 @@ else
   call s:h("SpellRare",   {"cterm": "underline", "fg": s:color0})
   call s:h("SpellLocal",  {"cterm": "underline", "fg": s:alt_color1})
 endif
+
 call s:h("Pmenu",         {"fg": s:norm, "bg": s:bg_subtle})
-call s:h("PmenuSel",      {"fg": s:norm, "bg": s:bg_alt})
+call s:h("PmenuSel",      {"fg": s:norm, "bg": s:alt_color0})
 call s:h("PmenuSbar",     {"fg": s:norm, "bg": s:bg_alt})
 call s:h("PmenuThumb",    {"fg": s:norm, "bg": s:bg_alt})
 call s:h("TabLine",       {"fg": s:norm, "bg": s:bg_alt})
@@ -329,9 +331,9 @@ call s:h("SignifySignChange",{"fg": s:color2, "bg": s:bg_subtle})
 call s:h("SignifySignDeleteFirstLine",{"fg": s:color0, "bg": s:bg_subtle})
 
 " GitGutter
-call s:h("GitGutterAdd",{"fg": s:color1, "bg": s:bg_subtle})
-call s:h("GitGutterDelete",{"fg": s:color0, "bg": s:bg_subtle})
-call s:h("GitGutterChange",{"fg": s:color2, "bg": s:bg_subtle})
+call s:h("GitGutterAdd",{"fg": s:clouds, "bg": s:bg_subtle})
+call s:h("GitGutterDelete",{"fg": s:color1, "bg": s:bg_subtle})
+call s:h("GitGutterChange",{"fg": s:color5, "bg": s:bg_subtle})
 call s:h("GitGutterChangeDelete",{"fg": s:color0, "bg": s:bg_subtle})
 
 
