@@ -9,6 +9,7 @@ vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
 vim.cmd("hi Error guibg=NONE ctermbg=NONE")
 vim.cmd("hi ErrorMsg guibg=NONE ctermbg=NONE")
 vim.cmd("hi Folded guibg=NONE ctermbg=NONE")
+
 -- vim.cmd("hi ColorColumn guibg=s:asphalt ctermbg=NONE")
 -- vim.cmd("hi ColorColumn guibg=blue blend=50%")
 
@@ -46,88 +47,6 @@ vim.cmd("set cmdheight=0")
 -- This might be helpful if you start using marks a lot.
 -- https://github.com/BartSte/nvim-project-marks
 
---- local function center_cursor()
----   local winheight = vim.api.nvim_win_get_height(0)
----   local cursor_row = vim.api.nvim_win_get_cursor(0)
---- 
----   -- Calculate the desired middle row
----   local middle_row = math.floor(winheight / 2)
---- 
----   -- Calculate the offset needed to center
----   local offset = middle_row - cursor_row[1]
---- 
----   -- Adjust the view, keeping the cursor's logical position the same
----   if offset ~= 0 then
----     vim.cmd("normal! " .. offset) -- Adjust view down if offset is positive, up if negative.
----   end
---- end
---- 
---- 
---- -- Option 1: Call the function on every cursor movement.  This is very aggressive.
---- vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {
----   callback = center_cursor,
----   desc = "Center cursor on every movement",
---- })
-
-
-
-
-
-
-
---- This makes it so my cursor is always in the middle of the screen.
--- https://github.com/neovim/neovim/issues/25392
------ vim.api.nvim_create_autocmd({ "CursorHold", "CursorMoved", "CursorMovedI" }, {
------ 	desc = "Center cursor",
------ 	group = vim.api.nvim_create_augroup("CenterCursor", { clear = true }),
------ 	callback = function()
------ 		local mode = vim.fn.mode(1)
------ 		if mode == "i" then
------ 			return
------ 		end
------ 		vim.cmd("normal! zz")
------ 	end,
------ })
-
-
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorMoved", "CursorMovedI"}, {
---    desc = "Keep cursor centered at all times",
---    group = vim.api.nvim_create_augroup("CenterCursor", { clear = true }),
---    callback = function()
---        local mode = vim.fn.mode(1)
---        if mode == "i" then
---			vim.cmd("normal zz)
---           return -- Ignore cursor movement in insert mode or when a popup menu is visible
---        end
---
---        -- Center the cursor
---        vim.cmd("wincmd z")
---
---        -- Scroll the screen to the cursor's position
---        vim.cmd("normal zz")
---   end,
--- })
-
-
-
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorMoved", "CursorMovedI" }, {
---	desc = "Keep cursor centered at all times",
---	group = vim.api.nvim_create_augroup("CenterCursor", { clear = true }),
---	callback = function()
---		local r, c = unpack(vim.api.nvim_win_get_cursor(0))
---		vim.cmd([[normal !zz]])
-		--		vim.nvim_win_set_cursor(1,{r, c})
-		--vim.api.nvim_win_set_cursor(0, { r, c })
---	end,
---})
-
-
----- function CenterCursor()
----- 	local r, c = unpack(vim.api.nvim_win_get_cursor(0))
----- 	vim.cmd([[normal !zz]])
----- 	vim.nvim_win_set_cursor(r, c)
----- end
-
 ---
 ---- This lets me lazyload tree sitter and plenary
 --- This was found here: https://www.reddit.com/r/neovim/comments/n8a094/a_simple_trick_to_load_source_code_with_neovimvim/
@@ -149,8 +68,12 @@ end, 80)
 vim.defer_fn(function()
 	vim.cmd([[doautocmd ColorScheme]])
 end, 120)
-----
----
----
 
 
+-- Automatically turn on colorizer
+-- vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   pattern = "*",
+--   callback = function()
+--     require("colorizer").attach_to_buffer(0)
+--   end,
+-- })
