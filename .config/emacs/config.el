@@ -117,8 +117,63 @@
 
 (setq org-preview-latex-default-process 'tectonic)
 
+;; Set up Obsidian Compatibility in Emacs
+(use-package obsidian
+  :ensure t
+  :custom
+  (obsidian-directory (expand-file-name "~/Documents/Obsidian Vaults/Main Vault/"))
+  (obsidian-daily-notes-directory "Daily Notes")
+  (obsidian-templates-directory "Organized/Templater/")
+  (obsidian-daily-note-template "Templater Daily Note.md")
+  (markdown-enable-wiki-links t)
+
+  :config
+  (global-obsidian-mode 1)
+  (obsidian-backlinks-mode 1)
+  ;; Override daily note command to use YYYYMMDD format. It usually uses YYYY-MM-DD format.
+  (defun obsidian-daily-note ()
+    "Open or create today's daily note with YYYYMMDD format."
+    (interactive)
+    (let* ((date-str (concat (format-time-string "%Y%m%d") ".md"))
+           (filename (if (bound-and-true-p obsidian-daily-notes-directory)
+                         (file-name-concat obsidian-daily-notes-directory date-str)
+                       date-str))
+           (file-path (expand-file-name filename obsidian-directory)))
+      (find-file file-path)))
+
+  :bind
+  (:map obsidian-mode-map
+        ("C-c C-l" . obsidian-insert-link)
+        ("C-c C-o" . obsidian-follow-link-at-point)
+        ("C-c C-p" . obsidian-jump)
+        ("C-c C-b" . obsidian-backlink-jump)))
+
+(use-package catppuccin-theme
+  :ensure t
+  :straight t
+  :config
+  (custom-set-faces
+   ;; Set the color for changes in the diff highlighting to blue.
+   `(diff-hl-change ((t (:background unspecified :foreground ,(catppuccin-get-color 'blue))))))
+
+  (custom-set-faces
+   ;; Set the color for deletions in the diff highlighting to red.
+   `(diff-hl-delete ((t (:background unspecified :foreground ,(catppuccin-get-color 'red))))))
+
+  (custom-set-faces
+   ;; Set the color for insertions in the diff highlighting to green.
+   `(diff-hl-insert ((t (:background unspecified :foreground ,(catppuccin-get-color 'green))))))
+
+  ;; Load the Catppuccin theme without prompting for confirmation.
+  (load-theme 'catppuccin :no-confirm))
+
 ;; This just maximizes the window.
 (toggle-frame-maximized)
 
 ;; This makes it so text wraps globally.
 (global-visual-line-mode)
+
+;; Prevents random spaces from appearing in org files when I press tab.
+(setq org-edit-src-content-indentation 0)
+
+(load-theme 'monodeep t)

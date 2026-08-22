@@ -687,56 +687,69 @@
   (evil-define-key 'normal 'global (kbd "<leader> h v") 'describe-variable) ;; Describe variable
   (evil-define-key 'normal 'global (kbd "<leader> h k") 'describe-key) ;; Describe key
 
+
   ;; Tab navigation
   (evil-define-key 'normal 'global (kbd "] t") 'tab-next) ;; Go to next tab
   (evil-define-key 'normal 'global (kbd "[ t") 'tab-previous) ;; Go to previous tab
 
+  ;; (evil-ex-define-cmd "q[uit]" #'evil-quit) ;; :q closes a window instead of closing the program.
+  (defun my/evil-quit-window ()
+	"Vim-like :q that never exits Emacs."
+	(interactive)
+	(if (one-window-p)
+		(let ((current (current-buffer)))
+		  (previous-buffer)
+		  (when (eq (current-buffer) current)
+			(switch-to-buffer "*scratch*")))
+	  (delete-window)))
+
+  (evil-ex-define-cmd "q" #'my/evil-quit-window)
 
   ;; Custom example. Formatting with prettier tool.
   (evil-define-key 'normal 'global (kbd "<leader> m p")
-    (lambda ()
-      (interactive)
-      (shell-command (concat "prettier --write " (shell-quote-argument (buffer-file-name))))
-      (revert-buffer t t t)))
+	(lambda ()
+	  (interactive)
+	  (shell-command (concat "prettier --write " (shell-quote-argument (buffer-file-name))))
+	  (revert-buffer t t t)))
 
   ;; LSP commands keybindings
   (evil-define-key 'normal lsp-mode-map
-    ;; (kbd "gd") 'lsp-find-definition                ;; evil-collection already provides gd
-    (kbd "gr") 'lsp-find-references                   ;; Finds LSP references
-    (kbd "<leader> c a") 'lsp-execute-code-action     ;; Execute code actions
-    (kbd "<leader> r n") 'lsp-rename                  ;; Rename symbol
-    (kbd "gI") 'lsp-find-implementation               ;; Find implementation
-    (kbd "<leader> l f") 'lsp-format-buffer)          ;; Format buffer via lsp
+	;; (kbd "gd") 'lsp-find-definition                ;; evil-collection already provides gd
+	(kbd "gr") 'lsp-find-references                   ;; Finds LSP references
+	(kbd "<leader> c a") 'lsp-execute-code-action     ;; Execute code actions
+	(kbd "<leader> r n") 'lsp-rename                  ;; Rename symbol
+	(kbd "gI") 'lsp-find-implementation               ;; Find implementation
+	(kbd "<leader> l f") 'lsp-format-buffer)          ;; Format buffer via lsp
 
 
   (defun ek/lsp-describe-and-jump ()
-    "Show hover documentation and jump to *lsp-help* buffer."
-    (interactive)
-    (lsp-describe-thing-at-point)
-    (let ((help-buffer "*lsp-help*"))
-      (when (get-buffer help-buffer)
-        (switch-to-buffer-other-window help-buffer))))
+	"Show hover documentation and jump to *lsp-help* buffer."
+	(interactive)
+	(lsp-describe-thing-at-point)
+	(let ((help-buffer "*lsp-help*"))
+	  (when (get-buffer help-buffer)
+		(switch-to-buffer-other-window help-buffer))))
 
   ;; Emacs 31 finaly brings us support for 'floating windows' (a.k.a. "child frames")
   ;; to terminal Emacs. If you're still using 30, docs will be shown in a buffer at the
   ;; inferior part of your frame.
   (evil-define-key 'normal 'global (kbd "K")
-    (if (>= emacs-major-version 31)
-        #'eldoc-box-help-at-point
-      #'ek/lsp-describe-and-jump))
+	(if (>= emacs-major-version 31)
+		#'eldoc-box-help-at-point
+	  #'ek/lsp-describe-and-jump))
 
   ;; Commenting functionality for single and multiple lines
   (evil-define-key 'normal 'global (kbd "gcc")
-    (lambda ()
-      (interactive)
-      (if (not (use-region-p))
-          (comment-or-uncomment-region (line-beginning-position) (line-end-position)))))
+	(lambda ()
+	  (interactive)
+	  (if (not (use-region-p))
+		  (comment-or-uncomment-region (line-beginning-position) (line-end-position)))))
 
   (evil-define-key 'visual 'global (kbd "gc")
-    (lambda ()
-      (interactive)
-      (if (use-region-p)
-          (comment-or-uncomment-region (region-beginning) (region-end)))))
+	(lambda ()
+	  (interactive)
+	  (if (use-region-p)
+		  (comment-or-uncomment-region (region-beginning) (region-end)))))
 
   ;; Enable evil mode
   (evil-mode 1))
@@ -902,45 +915,29 @@
   (nerd-icons-completion-mode)            ;; Activate nerd icons for completion interfaces.
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)) ;; Setup icons in the marginalia mode for enhanced completion display.
 
-(use-package catppuccin-theme
-  :ensure t
-  :straight t
-  :config
-  (custom-set-faces
-   ;; Set the color for changes in the diff highlighting to blue.
-   `(diff-hl-change ((t (:background unspecified :foreground ,(catppuccin-get-color 'blue))))))
-
-  (custom-set-faces
-   ;; Set the color for deletions in the diff highlighting to red.
-   `(diff-hl-delete ((t (:background unspecified :foreground ,(catppuccin-get-color 'red))))))
-
-  (custom-set-faces
-   ;; Set the color for insertions in the diff highlighting to green.
-   `(diff-hl-insert ((t (:background unspecified :foreground ,(catppuccin-get-color 'green))))))
-
-  ;; Load the Catppuccin theme without prompting for confirmation.
-  (load-theme 'catppuccin :no-confirm))
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
 
 ;; This is where I put all of my configuration files outside of init.el because it will make managing my config easier.
 (setq config-file (locate-user-emacs-file "config.el"))
 (load config-file 'noerror 'nomessage)
 
 ;;; UTILITARY FUNCTION TO INSTALL EMACS-KICK
-(defun ek/first-install ()
-  "Install tree-sitter grammars and compile packages on first run..."
-  (interactive)                                      ;; Allow this function to be called interactively.
-  (switch-to-buffer "*Messages*")                    ;; Switch to the *Messages* buffer to display installation messages.
-  (message ">>> All required packages installed.")
-  (message ">>> Configuring Emacs-Kick...")
-  (message ">>> Configuring Tree Sitter parsers...")
-  (require 'treesit-auto)
-  (treesit-auto-install-all)                         ;; Install all available Tree Sitter grammars.
-  (message ">>> Configuring Nerd Fonts...")
-  (require 'nerd-icons)
-  (nerd-icons-install-fonts)                         ;; Install all available nerd-fonts
-  (message ">>> Emacs-Kick installed! Press any key to close the installer and open Emacs normally. First boot will compile some extra stuff :)")
-  (read-key)                                         ;; Wait for the user to press any key.
-  (kill-emacs))                                      ;; Close Emacs after installation is complete.
+	(defun ek/first-install ()
+	  "Install tree-sitter grammars and compile packages on first run..."
+	  (interactive)                                      ;; Allow this function to be called interactively.
+	  (switch-to-buffer "*Messages*")                    ;; Switch to the *Messages* buffer to display installation messages.
+	  (message ">>> All required packages installed.")
+	  (message ">>> Configuring Emacs-Kick...")
+	  (message ">>> Configuring Tree Sitter parsers...")
+	  (require 'treesit-auto)
+	  (treesit-auto-install-all)                         ;; Install all available Tree Sitter grammars.
+	  (message ">>> Configuring Nerd Fonts...")
+	  (require 'nerd-icons)
+	  (nerd-icons-install-fonts)                         ;; Install all available nerd-fonts
+	  (message ">>> Emacs-Kick installed! Press any key to close the installer and open Emacs normally. First boot will compile some extra stuff :)")
+	  (read-key)                                         ;; Wait for the user to press any key.
+	  (kill-emacs))                                      ;; Close Emacs after installation is complete.
 
-(provide 'init)
+	(provide 'init)
+
 ;;; init.el ends here
